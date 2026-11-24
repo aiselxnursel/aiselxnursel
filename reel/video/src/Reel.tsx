@@ -305,7 +305,7 @@ const Outro: React.FC = () => {
 
 // ---------- overlays on the avatar ----------
 const SectionLabel: React.FC<{text: string}> = ({text}) => (
-  <div style={{position: 'absolute', left: 0, right: 0, top: 960, display: 'flex', justifyContent: 'center'}}>
+  <div style={{position: 'absolute', left: 0, right: 0, bottom: 26, display: 'flex', justifyContent: 'center'}}>
     <Pop><div style={{background: C.ink, color: '#fff', fontFamily: SANS, fontWeight: 700, fontSize: 34, padding: '8px 22px', borderRadius: 10}}>{text}</div></Pop>
   </div>
 );
@@ -333,7 +333,7 @@ const Captions: React.FC = () => {
   const startF = sec(ch[0].s);
   const s = interpolate(f - startF, [0, 5], [0.85, 1], {easing: IN, extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
-    <div style={{position: 'absolute', left: 40, right: 40, top: 1540, display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 22px', transform: `scale(${s})`}}>
+    <div style={{position: 'absolute', left: 40, right: 40, bottom: 70, display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 22px', transform: `scale(${s})`}}>
       {ch.map((w, i) => {
         const on = t >= w.s;
         const isEm = EMPH.has(clean(w.t)) || EMPH.has(clean(w.t).replace(/'.*$/, ''));
@@ -372,32 +372,42 @@ const SCENES: Scene[] = [
 ];
 export const DURATION = sec(69.5);
 
-const Avatar: React.FC<{src: string}> = ({src}) => {
+const Avatar: React.FC<{src: string; focus: string}> = ({src, focus}) => {
   const f = useCurrentFrame();
   const isVideo = /\.(mp4|mov|webm)$/i.test(src);
-  if (isVideo) return <OffthreadVideo src={staticFile(src)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} />;
+  if (isVideo) return <OffthreadVideo src={staticFile(src)} muted style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: focus}} />;
   // placeholder: still photo with a slow push-in
   const z = interpolate(f, [0, DURATION], [1.0, 1.06]);
-  return <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${z})`, transformOrigin: '50% 70%'}} />;
+  return <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: focus, transform: `scale(${z})`, transformOrigin: '50% 40%'}} />;
 };
 
-export const Reel: React.FC<{avatar: string}> = ({avatar}) => (
+const SPLIT = 900; // top: graphics, bottom: avatar
+
+export const Reel: React.FC<{avatar: string; avatarFocus?: string}> = ({avatar, avatarFocus = '50% 62%'}) => (
   <AbsoluteFill style={{background: C.cream}}>
-    <Avatar src={avatar} />
-    {/* soft cream wash on the top half so graphics read clearly */}
-    <AbsoluteFill style={{background: `linear-gradient(180deg, ${C.cream} 0%, ${C.cream}E6 30%, ${C.cream}00 44%)`}} />
-    {SCENES.map((s, i) => (
-      <Sequence key={i} from={sec(s.from)} durationInFrames={sec(s.to) - sec(s.from)}>
-        {s.el}
-      </Sequence>
-    ))}
-    {SCENES.map((s, i) => s.label && (SCENES[i - 1]?.label !== s.label) ? (
-      <Sequence key={'l' + i} from={sec(s.from)} durationInFrames={sec(SCENES.filter(x => x.label === s.label).slice(-1)[0].to) - sec(s.from)}>
-        <SectionLabel text={s.label} />
-      </Sequence>
-    ) : null)}
-    <Captions />
-    <div style={{position: 'absolute', top: 54, left: 54, fontFamily: MONO, fontSize: 26, color: C.muted}}>@aiselxnursel</div>
+    {/* TOP: graphics panel */}
+    <div style={{position: 'absolute', left: 0, top: 0, width: 1080, height: SPLIT, overflow: 'hidden', background: C.cream}}>
+      <div style={{position: 'absolute', left: 0, top: 0, width: 1080, height: 1100, transform: 'scale(0.82)', transformOrigin: '50% 0%'}}>
+        {SCENES.map((s, i) => (
+          <Sequence key={i} from={sec(s.from)} durationInFrames={sec(s.to) - sec(s.from)}>
+            {s.el}
+          </Sequence>
+        ))}
+      </div>
+      {SCENES.map((s, i) => s.label && (SCENES[i - 1]?.label !== s.label) ? (
+        <Sequence key={'l' + i} from={sec(s.from)} durationInFrames={sec(SCENES.filter(x => x.label === s.label).slice(-1)[0].to) - sec(s.from)}>
+          <SectionLabel text={s.label} />
+        </Sequence>
+      ) : null)}
+      <div style={{position: 'absolute', top: 40, left: 48, fontFamily: MONO, fontSize: 24, color: C.muted}}>@aiselxnursel</div>
+    </div>
+    {/* BOTTOM: avatar */}
+    <div style={{position: 'absolute', left: 0, top: SPLIT, width: 1080, height: 1920 - SPLIT, overflow: 'hidden'}}>
+      <Avatar src={avatar} focus={avatarFocus} />
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(0,0,0,0) 62%, rgba(0,0,0,.45) 100%)'}} />
+      <Captions />
+    </div>
+    <div style={{position: 'absolute', left: 0, right: 0, top: SPLIT - 3, height: 6, background: C.ink, opacity: .9}} />
     <Audio src={staticFile('voice.mp3')} />
   </AbsoluteFill>
 );

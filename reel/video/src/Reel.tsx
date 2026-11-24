@@ -31,10 +31,11 @@ const C = {
   yellow: '#FFD400', red: '#E5483B', ok: '#22A06B', card: '#FFFFFF', line: '#E6DECD', muted: '#8A8475',
 };
 const IN = Easing.bezier(0.16, 1, 0.3, 1);
-const sec = (s: number) => Math.round(s * FPS);
+export const SPEED = 1.15; // voice sped up to fit HeyGen's 60 s limit
+const sec = (s: number) => Math.round((s / SPEED) * FPS);
 
 // ---------- helpers ----------
-const useT = () => useCurrentFrame() / FPS;
+const useT = () => (useCurrentFrame() / FPS) * SPEED;
 const appear = (f: number, start = 0, dur = 12) =>
   interpolate(f, [start, start + dur], [0, 1], {easing: IN, extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
@@ -408,6 +409,6 @@ export const Reel: React.FC<{avatar: string; avatarFocus?: string}> = ({avatar, 
       <Captions />
     </div>
     <div style={{position: 'absolute', left: 0, right: 0, top: SPLIT - 3, height: 6, background: C.ink, opacity: .9}} />
-    <Audio src={staticFile('voice.mp3')} />
+    <Audio src={staticFile('voice_fast.mp3')} />
   </AbsoluteFill>
 );

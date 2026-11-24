@@ -1,0 +1,8 @@
+node_modules/
+video/out/
+video/public/
+*.mp3
+*.mp4
+*.png
+*.jpg
+words.json

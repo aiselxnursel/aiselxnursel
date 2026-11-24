@@ -1,0 +1,7 @@
+Claude'u son model bir araba gibi düşün. İki yüz kırk basabilir, ama çoğumuz on dörtle gidiyoruz. İşte Claude'un gerçek gücünü açan beş ücretsiz araç.
+Birincisi, OmniRoute. Açık kaynak, ücretsiz. Yüzlerce yapay zekâ sağlayıcısını tek adreste topluyor. Biri limite takılınca iş durmuyor, sıradakine geçiyor. Kısacası limit diye bir dert kalmıyor.
+İkincisi, claude-mem. Claude'un en büyük derdi unutkanlık; her oturum sıfırdan başlıyor. claude-mem dün ne yaptığınızı bugüne taşıyor.
+Üçüncüsü, Headroom. Claude'a giden her log'u, her JSON'u süzüyor. Token harcaman düşüyor, cevap aynı kalıyor.
+Dördüncüsü, Claude Code Setup. Anthropic'in kendi eklentisi. Projeni tarıyor, hangi hook'u, hangi skill'i kurman gerektiğini söylüyor. Yanında bir danışman gibi.
+Beşincisi, Task Observer. Aynı düzeltmeyi üç kez yaptıysan fark ediyor ve skill'ini güncellemeyi öneriyor. Claude her hafta biraz daha sen oluyor.
+Beşi de ücretsiz. Kurulumlarını adım adım bir PDF'e yazdım. Yorumlara CLAUDE yaz, hemen göndereyim.

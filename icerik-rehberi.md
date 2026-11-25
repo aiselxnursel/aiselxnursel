@@ -26,13 +26,10 @@ Story, caption, carousel ve reels metinleri bu rehbere göre yazılır.
 
 **Story görsel düzeni**
 - Tüm seri tek fotoğraf; sadece kutuların yeri değişir.
-- Açılış sorusu: pembe zemin, kalın koyu pembe yazı.
-- Normal metin: beyaz kutu, tırnaklı (serif) yazı.
-- Vurgu: bordo / mor-pembe / siyah kutuda kalın beyaz yazı. Kilit süreç: kırmızı yazı.
-- Karar / özlem cümlesi: büyük renkli kutu ("Ya o hayat sana artık yetmiyorsa?😔").
+- **En fazla 2 renk:** Normal metin beyaz kutuda, tırnaklı (serif) yazı. Dikkat çekmesi istenen yazılar (açılış sorusu, vurgu, karar cümlesi, CTA) tek bir vurgu renginde: bordo kutuda kalın beyaz yazı. Pembe, siyah, kırmızı gibi üçüncü bir renk kullanılmaz.
 - `#reklam` küçük, beyaz kutulu, sağ altta.
 - **Yüz her zaman açık kalır.** Yazılar yüzün üstünde (başın üstü), sosyal kanıt kartları ve uzun listeler yüzün altında (gövde hizası) durur.
-- Kapanış CTA: siyah kutu, "DM'den "YZ" yaz. Detayları anlatayım✨"
+- Kapanış CTA: vurgu renginde kutu, "DM'den "YZ" yaz. Detayları anlatayım✨"
 
 ---
 

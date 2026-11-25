@@ -31,6 +31,7 @@ Story, caption, carousel ve reels metinleri bu rehbere göre yazılır.
 - Vurgu: bordo / mor-pembe / siyah kutuda kalın beyaz yazı. Kilit süreç: kırmızı yazı.
 - Karar / özlem cümlesi: büyük renkli kutu ("Ya o hayat sana artık yetmiyorsa?😔").
 - `#reklam` küçük, beyaz kutulu, sağ altta.
+- **Yüz her zaman açık kalır.** Yazılar yüzün üstünde (başın üstü), sosyal kanıt kartları ve uzun listeler yüzün altında (gövde hizası) durur.
 - Kapanış CTA: siyah kutu, "DM'den "YZ" yaz. Detayları anlatayım✨"
 
 ---

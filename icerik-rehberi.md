@@ -4,6 +4,8 @@ Story, caption, carousel ve reels metinleri bu rehbere göre yazılır.
 
 > **Çalışma kuralı:** Her yeni içerikte yazmaya başlamadan önce hangi yöntemle yazılacağı sorulur. Gelen malzemeye (sosyal kanıt, konu, hedef) göre 2-3 uygun model önerilir, birinin neden en iyisi olduğu kısaca açıklanır, onay gelince yazılır. İstisna: Kullanıcı yöntemin adını söylediyse (ör. "Bu Ne Cüret 3. gün") doğrudan yazılır.
 
+> **Yeni sohbette başlarken:** "Rehberi oku. Bugünün sosyal kanıtları bunlar, story yap." + 3-5 fotoğraf + ekran görüntüleri. Story görselleri depodaki `story_tasarim.py` ile üretilir (beyaz + bordo, yüz açık, kart gizleme, #reklam). Fotoğraflar ve sosyal kanıtlar depoya kaydedilmez.
+
 ---
 
 ## 1. Dil (sesim)

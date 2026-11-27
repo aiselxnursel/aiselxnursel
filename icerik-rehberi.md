@@ -4,7 +4,7 @@ Story, caption, carousel ve reels metinleri bu rehbere göre yazılır.
 
 > **Çalışma kuralı:** Her yeni içerikte yazmaya başlamadan önce hangi yöntemle yazılacağı sorulur. Gelen malzemeye (sosyal kanıt, konu, hedef) göre 2-3 uygun model önerilir, birinin neden en iyisi olduğu kısaca açıklanır, onay gelince yazılır. İstisna: Kullanıcı yöntemin adını söylediyse (ör. "Bu Ne Cüret 3. gün") doğrudan yazılır.
 
-> **Yeni sohbette başlarken:** "Rehberi oku. Bugünün sosyal kanıtları bunlar, story yap." + 3-5 fotoğraf + ekran görüntüleri. Story görselleri depodaki `story_tasarim.py` ile üretilir (beyaz + bordo, yüz açık, kart gizleme, #reklam). Fotoğraflar ve sosyal kanıtlar depoya kaydedilmez.
+> **Yeni sohbette başlarken:** "Rehberi oku. Bugünün sosyal kanıtları bunlar, story yap." + 3-5 fotoğraf + ekran görüntüleri. Story görselleri depodaki `story_tasarim.py` ile üretilir (beyaz + bordo, yüz açık, düz küçük kartlar, iPhone emojisi, kart gizleme, #reklam). Fotoğraflar ve sosyal kanıtlar depoya kaydedilmez.
 
 ---
 
@@ -32,6 +32,8 @@ Story, caption, carousel ve reels metinleri bu rehbere göre yazılır.
 - Tüm seri tek fotoğraf; sadece kutuların yeri değişir.
 - **En fazla 2 renk:** Normal metin beyaz kutuda, tırnaklı (serif) yazı. Dikkat çekmesi istenen yazılar (açılış sorusu, vurgu, karar cümlesi, CTA) tek bir vurgu renginde: bordo kutuda kalın beyaz yazı. Pembe, siyah, kırmızı gibi üçüncü bir renk kullanılmaz.
 - `#reklam` küçük, beyaz kutulu, sağ altta.
+- **Sosyal kanıt kartları düz ve küçük:** Eğimsiz, ortalı, ~370-500 px genişlik. İki kart aynı story'deyse yan yana, aynı boyda.
+- **Emojiler iPhone emojisi** (Apple). Araç bunu otomatik yapar.
 - **Yüz her zaman açık kalır.** Yazılar yüzün üstünde (başın üstü), sosyal kanıt kartları ve uzun listeler yüzün altında (gövde hizası) durur.
 - Kapanış CTA: vurgu renginde kutu, "DM'den "YZ" yaz. Detayları anlatayım✨"
 

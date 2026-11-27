@@ -4,7 +4,10 @@ Rehberdeki görsel kurallar burada sabit:
 - En fazla 2 renk: beyaz kutu (normal metin) + bordo kutu (vurgu).
 - Tırnaklı (serif) yazı, emojiler cümle sonunda.
 - Yüz açık kalır: metin yüzün üstünde, kartlar yüzün altında.
-- Sosyal kanıt kartları köşesi yuvarlatılmış, gölgeli; kişisel bilgiler `card(..., whites=, blurs=)` ile kapatılır.
+- Sosyal kanıt kartları düz (eğimsiz), küçük (varsayılan 440 px genişlik, 370-500 arası) ve ortalı;
+  köşesi yuvarlatılmış, gölgeli. Kişisel bilgiler `card(..., whites=, blurs=)` ile kapatılır.
+- Emojiler iPhone (Apple) emojisi. Set ilk kullanımda npm'den (emoji-datasource-apple)
+  ~/.cache/story_emoji altına indirilir; inemezse Noto emojiye düşülür.
 - Her story'de sağ altta #reklam.
 
 Kullanım (örnek):
@@ -14,10 +17,16 @@ Kullanım (örnek):
     k = card("kanit.jpg", crop=(150, 0, 1040, 835), whites=[(180, 195, 340, 240)])
     img = bg("foto.jpg")
     stack(img, ["Beyaz kutu", ("Bordo vurgu", "bordo")], y=60)
-    place(img, k, x=270, y=1100, w=540, angle=-3)
+    place(img, k, y=1080)                         # tek kart: düz, ortalı, 440 px
+    # iki kart yan yana: place(img, a, x=135, y=1080, w=380); place(img, b, x=565, y=1080, w=380)
     save(img, "story_1.jpg")
 """
+import os
 import re
+import shutil
+import subprocess
+import tarfile
+import tempfile
 from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter
 
 W, H = 1080, 1920
@@ -65,7 +74,41 @@ def _clusters(word):
     return res
 
 
+APPLE_VER = "16.0.0"
+APPLE_DIR = os.path.expanduser(f"~/.cache/story_emoji/apple-{APPLE_VER}")
+_apple_ok = None
+
+
+def _apple_dir():
+    """iPhone emoji PNG'lerini (64 px) bir kez indirip önbelleğe alır. Başarısızsa None."""
+    global _apple_ok
+    if _apple_ok is None:
+        if not os.path.isdir(APPLE_DIR):
+            url = f"https://registry.npmjs.org/emoji-datasource-apple/-/emoji-datasource-apple-{APPLE_VER}.tgz"
+            try:
+                with tempfile.TemporaryDirectory() as td:
+                    tgz = os.path.join(td, "p.tgz")
+                    subprocess.run(["curl", "-sfL", "-o", tgz, url], check=True, timeout=300)
+                    with tarfile.open(tgz) as t:
+                        ms = [m for m in t.getmembers()
+                              if m.isfile() and m.name.startswith("package/img/apple/64/")]
+                        t.extractall(td, members=ms)
+                    os.makedirs(os.path.dirname(APPLE_DIR), exist_ok=True)
+                    shutil.move(os.path.join(td, "package/img/apple/64"), APPLE_DIR)
+            except Exception as e:
+                print("Uyarı: iPhone emojileri indirilemedi, Noto kullanılacak:", e)
+        _apple_ok = os.path.isdir(APPLE_DIR)
+    return APPLE_DIR if _apple_ok else None
+
+
 def _emoji_img(seq, size):
+    d = _apple_dir()
+    if d:
+        cps = [f"{ord(c):x}" for c in seq]
+        for name in ("-".join(cps), "-".join(c for c in cps if c != "fe0f")):
+            p = os.path.join(d, name + ".png")
+            if os.path.exists(p):
+                return Image.open(p).convert("RGBA").resize((size, size), Image.LANCZOS)
     im = Image.new("RGBA", (200, 160), (0, 0, 0, 0))
     ImageDraw.Draw(im).text((0, 0), seq, font=EMOJI, embedded_color=True)
     im = im.crop(im.getbbox() or (0, 0, 1, 1))
@@ -174,8 +217,11 @@ def card(path, crop, whites=(), blurs=()):
     return im.crop(crop)
 
 
-def place(img, c, x, y, w, angle=0):
-    """Kartı yuvarlatılmış köşe + gölge ile yerleştirir; kartın alt y'sini döndürür."""
+def place(img, c, y, x=None, w=440, angle=0):
+    """Kartı yuvarlatılmış köşe + gölge ile yerleştirir; kartın alt y'sini döndürür.
+    Varsayılan: düz (angle=0), 440 px, x verilmezse yatayda ortalı."""
+    if x is None:
+        x = (W - w) // 2
     r = w / c.width
     c = c.resize((int(c.width * r), int(c.height * r)), Image.LANCZOS).convert("RGBA")
     m = Image.new("L", c.size, 0)

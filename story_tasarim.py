@@ -4,6 +4,8 @@ Rehberdeki görsel kurallar burada sabit:
 - En fazla 2 renk: beyaz kutu (normal metin) + bordo kutu (vurgu).
 - Tırnaklı (serif) yazı, emojiler cümle sonunda.
 - Yüz açık kalır: metin yüzün üstünde, kartlar yüzün altında.
+- Metin en üstten başlamaz: üstteki ~250 px Instagram profil çubuğu ve müzik
+  çıkartmasına ayrılır (UST). Bu yüzden üstte en fazla 3 kutu.
 - Sosyal kanıt kartları düz (eğimsiz), küçük (varsayılan 440 px genişlik, 370-500 arası) ve ortalı;
   köşesi yuvarlatılmış, gölgeli. Kişisel bilgiler `card(..., whites=, blurs=)` ile kapatılır.
 - Emojiler iPhone (Apple) emojisi. Set ilk kullanımda npm'den (emoji-datasource-apple)
@@ -16,7 +18,7 @@ Kullanım (örnek):
     yuz_kontrol("foto.jpg", "grid.jpg")          # yüzün hangi y aralığında olduğunu gör
     k = card("kanit.jpg", crop=(150, 0, 1040, 835), whites=[(180, 195, 340, 240)])
     img = bg("foto.jpg")
-    stack(img, ["Beyaz kutu", ("Bordo vurgu", "bordo")], y=60)
+    stack(img, ["Beyaz kutu", ("Bordo vurgu", "bordo")])   # y varsayılanı UST
     place(img, k, y=1080)                         # tek kart: düz, ortalı, 440 px
     # iki kart yan yana: place(img, a, x=135, y=1080, w=380); place(img, b, x=565, y=1080, w=380)
     save(img, "story_1.jpg")
@@ -30,6 +32,7 @@ import tempfile
 from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter
 
 W, H = 1080, 1920
+UST = 250  # metnin başladığı y: üstü profil çubuğu + müzik çıkartması için boş kalır
 SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
 SERIFB = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
 CHECK_FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -162,7 +165,7 @@ def box(img, text, y, style="w", size=42, maxw=900):
     return y + bh
 
 
-def stack(img, items, y, gap=6, size=42):
+def stack(img, items, y=UST, gap=6, size=42):
     """Alt alta kutular. item: "metin" (beyaz) ya da ("metin", "bordo"[, boyut])."""
     for it in items:
         if isinstance(it, str):

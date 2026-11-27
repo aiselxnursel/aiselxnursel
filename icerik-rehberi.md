@@ -34,8 +34,11 @@ Story, caption, carousel ve reels metinleri bu rehbere göre yazılır.
 - `#reklam` küçük, beyaz kutulu, sağ altta.
 - **Sosyal kanıt kartları düz ve küçük:** Eğimsiz, ortalı, ~370-500 px genişlik. İki kart aynı story'deyse yan yana, aynı boyda.
 - **Emojiler iPhone emojisi** (Apple). Araç bunu otomatik yapar.
+- **Yazılar en üstten başlamaz:** Üstteki alan (~250 px) müzik çıkartması ve profil çubuğuna bırakılır, yoksa şarkı eklenince yazı okunmuyor. Üstte en fazla 3 kutu; gerekirse cümleler birleştirilir.
 - **Yüz her zaman açık kalır.** Yazılar yüzün üstünde (başın üstü), sosyal kanıt kartları ve uzun listeler yüzün altında (gövde hizası) durur.
-- Kapanış CTA: vurgu renginde kutu, "DM'den "YZ" yaz. Detayları anlatayım✨"
+- Kapanış CTA: vurgu renginde kutu, "Tüm detaylar web sitemde ✨ Linke dokun". Story'ye link çıkartması eklenir:
+  `https://aiselxnursel.github.io/aiselxnursel/?utm_source=ig&utm_medium=story`
+  (Instagram'dan kopyalanan linkteki `fbclid` kısmı atılır.)
 
 ---
 
